@@ -7,7 +7,10 @@ interface LoadMoreBtnProps {
 const LoadMoreBtn = ({ setPage }: LoadMoreBtnProps) => {
   return (
     <div className={s.wrapper}>
-      <button className={s.btn} onClick={() => setPage((prev: number) => prev + 1)}>
+      <button
+        className={s.btn}
+        onClick={() => setPage((prev: number) => prev + 1)}
+      >
         Load more
       </button>
     </div>

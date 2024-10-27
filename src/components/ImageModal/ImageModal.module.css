@@ -1,22 +1,20 @@
 .modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    outline: none;
-    max-width: 100%;
-    max-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0;
+    background-color: white;
+    border-radius: 8px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: hidden;
 }
 
 .overlay {
-    background-color: rgba(0, 0, 0, 0.8);
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.image {
+    width: 100%;
+    height: auto;
 }

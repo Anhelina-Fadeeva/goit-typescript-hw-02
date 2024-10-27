@@ -8,11 +8,11 @@ import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import { fetchData } from "../../services/api";
 import { Picture } from "./App.types";
 
-const App = () => {
+const App: React.FC = () => {
   const [results, setResults] = useState<Picture[]>([]);
   const [query, setQuery] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
   const [total, setTotal] = useState<number>(0);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -30,19 +30,22 @@ const App = () => {
   useEffect(() => {
     const getData = async () => {
       if (!query) return;
+
+      setError(null);
+      setIsLoading(true);
+
       try {
-        setError(false);
-        setIsLoading(true);
         const response = await fetchData(query, page);
         setResults((prev) => [...prev, ...response.results]);
         setTotal(response.totalPages);
-      } catch (error) {
+      } catch (err) {
         setResults([]);
-        setError(true);
+        setError("Failed to fetch data. Please try again.");
       } finally {
         setIsLoading(false);
       }
     };
+
     getData();
   }, [query, page]);
 
@@ -50,17 +53,17 @@ const App = () => {
     setQuery(query);
     setResults([]);
     setPage(1);
-    setError(false);
+    setError(null);
   };
 
   return (
-    <div>
-      <SearchBar setQuery={handleSetQuery} setResults={setResults} />
-      <ErrorMessage error={error} />
-      <ImageGallery onPictureClick={onPictureClick} pictures={results} />
-      <Loader isLoading={isLoading} />
+    <div style={{ backgroundColor: '#f5f7fa', padding: '20px' }}>
+      <SearchBar setQuery={handleSetQuery} />
+      {error && <ErrorMessage error={error} />}
+      <ImageGallery pictures={results} onPictureClick={onPictureClick} />
+      {isLoading && <Loader />}
       {total > page && !isLoading && results.length > 0 && (
-        <LoadMoreBtn setPage={setPage} />
+        <LoadMoreBtn onClick={() => setPage((prev) => prev + 1)} />
       )}
       {modalIsOpen && selectedPicture && (
         <ImageModal

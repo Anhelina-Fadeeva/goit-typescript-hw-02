@@ -17,8 +17,6 @@ const Loader = ({ isLoading }: LoaderProps) => {
             color="#4fa94d"
             radius="9"
             ariaLabel="three-dots-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
           />
         )}
       </div>

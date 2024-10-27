@@ -1,20 +1,39 @@
 .header {
-    background-color: cornflowerblue;
-    text-align: center;
-    padding: 30px;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+    display: flex;
+    align-items: center;
 }
 
 .input {
     padding: 10px;
-    border: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    flex: 1;
+}
+
+.input:focus {
+    border-color: #4fa94d;
+    outline: none;
 }
 
 .btn {
-    margin-left: 10px;
-    padding: 10px;
-    border-radius: 3px;
-    background-color: lightblue;
+    padding: 10px 20px;
+    background-color: #4fa94d;
+    color: white;
     border: none;
-    color: rgb(2, 0, 131);
-    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #3b8c3a;
 }

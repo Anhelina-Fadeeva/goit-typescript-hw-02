@@ -1,18 +1,18 @@
-import ImageCard from "./ImageCard/ImageCard";
+import ImageCard from "../ImageCard/ImageCard";
 import s from "./ImageGallery.module.css";
 import { Picture } from "../App/App.types";
 
 interface ImageGalleryProps {
   pictures: Picture[];
   onPictureClick: (link: string) => void;
-};
+}
 
-const ImageGallery = ({ pictures, onPictureClick }: ImageGalleryProps) => {
+const ImageGallery: React.FC<ImageGalleryProps> = ({ pictures, onPictureClick }) => {
   return (
     <ul className={s.gallery}>
       {pictures.map((picture) => (
         <li key={picture.id}>
-          <ImageCard onPictureClick={onPictureClick} picture={picture} />
+          <ImageCard onPictureClick={onPictureClick} dataImage={picture} />
         </li>
       ))}
     </ul>

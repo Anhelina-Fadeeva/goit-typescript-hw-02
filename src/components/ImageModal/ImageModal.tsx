@@ -20,7 +20,7 @@ const ImageModal = ({
       className={s.modal}
       overlayClassName={s.overlay}
     >
-      <img src={selectedPicture} />
+      <img src={selectedPicture} className={s.image} alt="Modal" />
     </Modal>
   );
 };

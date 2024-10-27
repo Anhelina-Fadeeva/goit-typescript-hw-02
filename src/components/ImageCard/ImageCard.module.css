@@ -1,5 +1,10 @@
 .imageGallery {
-    width: 485px;
-    height: 300px;
-    object-fit: cover;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.imageGallery:hover {
+    transform: scale(1.05);
 }
