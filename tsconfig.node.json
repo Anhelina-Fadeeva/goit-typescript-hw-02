@@ -2,8 +2,12 @@
   "compilerOptions": {
     "composite": true,
     "module": "ESNext",
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true, // Позволяет использовать синтаксис импорта ES6
+    "target": "ESNext", // Определяет целевую версию языка
+    "lib": ["ESNext", "DOM"], // Обеспечивает поддержку новых возможностей
+    "skipLibCheck": true // Пропускает проверку библиотек, чтобы избежать проблем с типами
   },
   "include": ["vite.config.ts"]
 }
