@@ -34,15 +34,20 @@ const App: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetchData(query, page);
-      setResults((prev) => [...prev, ...response.results]);
-      setTotal(response.totalPages);
-    } catch (err) {
-      setResults([]); // стоит подумать на какой логикой оставить результаты
-      setError("Failed to fetch data. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
+  const response = await fetchData(query, page);
+  setResults((prev) => [...prev, ...response.results]);
+  setTotal(response.totalPages);
+} catch (err: unknown) { // Указываем тип unknown
+  setResults([]);
+  setError("Failed to fetch data. Please try again.");
+  
+  // Приведение типа, если нужно
+  if (err instanceof Error) {
+    console.error(err.message); // Правильный способ работы с ошибкой
+  }
+} finally {
+  setIsLoading(false);
+}
   };
 
   useEffect(() => {
@@ -56,14 +61,14 @@ const App: React.FC = () => {
     setError(null);
   };
 
-  return (
+return (
     <div style={{ backgroundColor: "#f5f7fa", padding: "20px" }}>
       <SearchBar setQuery={handleSetQuery} setResults={setResults} />
       {error && <ErrorMessage error={error} />}
       <ImageGallery pictures={results} onPictureClick={onPictureClick} />
-      {isLoading && <Loader />}
+      {isLoading && <Loader isLoading={isLoading} />} {/* Передаем текущее состояние загрузки */}
       {total > page && !isLoading && results.length > 0 && (
-        <LoadMoreBtn onClick={() => setPage((prev) => prev + 1)} />
+        <LoadMoreBtn onClick={() => setPage((prev) => prev + 1)} /> // Убедитесь, что onClick передан правильно
       )}
       {modalIsOpen && selectedPicture && (
         <ImageModal
