@@ -38,7 +38,7 @@ const App: React.FC = () => {
       setResults((prev) => [...prev, ...response.results]);
       setTotal(response.totalPages);
     } catch (err) {
-      setResults([]);
+      setResults([]); // стоит подумать на какой логикой оставить результаты
       setError("Failed to fetch data. Please try again.");
     } finally {
       setIsLoading(false);
@@ -58,7 +58,7 @@ const App: React.FC = () => {
 
   return (
     <div style={{ backgroundColor: "#f5f7fa", padding: "20px" }}>
-      <SearchBar setQuery={handleSetQuery} />
+      <SearchBar setQuery={handleSetQuery} setResults={setResults} />
       {error && <ErrorMessage error={error} />}
       <ImageGallery pictures={results} onPictureClick={onPictureClick} />
       {isLoading && <Loader />}
