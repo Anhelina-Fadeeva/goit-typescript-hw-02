@@ -27,37 +27,37 @@ const App: React.FC = () => {
     setModalIsOpen(true);
   };
 
+  const handleFetchData = async (): Promise<void> => {
+    if (!query) return;
+
+    setError(null);
+    setIsLoading(true);
+
+    try {
+      const response = await fetchData(query, page);
+      setResults((prev) => [...prev, ...response.results]);
+      setTotal(response.totalPages);
+    } catch (err) {
+      setResults([]);
+      setError("Failed to fetch data. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const getData = async () => {
-      if (!query) return;
-
-      setError(null);
-      setIsLoading(true);
-
-      try {
-        const response = await fetchData(query, page);
-        setResults((prev) => [...prev, ...response.results]);
-        setTotal(response.totalPages);
-      } catch (err) {
-        setResults([]);
-        setError("Failed to fetch data. Please try again.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getData();
+    handleFetchData();
   }, [query, page]);
 
-  const handleSetQuery = (query: string): void => {
-    setQuery(query);
+  const handleSetQuery = (newQuery: string): void => {
+    setQuery(newQuery);
     setResults([]);
     setPage(1);
     setError(null);
   };
 
   return (
-    <div style={{ backgroundColor: '#f5f7fa', padding: '20px' }}>
+    <div style={{ backgroundColor: "#f5f7fa", padding: "20px" }}>
       <SearchBar setQuery={handleSetQuery} />
       {error && <ErrorMessage error={error} />}
       <ImageGallery pictures={results} onPictureClick={onPictureClick} />

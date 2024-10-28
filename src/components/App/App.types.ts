@@ -1,5 +1,9 @@
 export interface Picture {
-  urls: { small: string; regular: string };
-  alt_description: string;
   id: string;
+  alt_description: string;
+  urls: {
+    small: string;
+    regular: string;
+    [key: string]: string;
+  };
 }
